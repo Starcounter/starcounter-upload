@@ -1,2 +1,2 @@
 # starcounter-upload
-Starcounter custom component to upload files over WebSocket
+Starcounter Polymer element to uplaod files over WebSocket
