@@ -2,7 +2,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         bump: {
             options: {
-                files: ['bower.json', 'starcounter-upload.html'],
+                files: ['bower.json', 'package.json', 'starcounter-upload.html'],
                 commit: true,
                 commitMessage: '%VERSION%',
                 commitFiles: ['bower.json', 'starcounter-upload.html'],
