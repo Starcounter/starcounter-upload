@@ -1,5 +1,6 @@
 {
     "name": "starcounter-upload",
+    "version": "0.0.1",
     "homepage": "https://github.com/Starcounter/starcounter-upload",
     "authors": [
         "Konstantin <const.miyang@gmail.com>"
