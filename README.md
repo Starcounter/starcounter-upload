@@ -35,3 +35,7 @@ Name          | Parameters       | Description
 	sizeString: "" // File size in readable format like 512kb, 1mb, 2.5gb
 }
 ```
+
+## License
+
+MIT
