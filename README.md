@@ -11,6 +11,7 @@ Name           | Type      | Default | Description
 `sessionId`    | `String`  |         | Starcounter sessions id to pass with file upload.
 `multiple`     | `Boolean` | `false` | Multiple file selection.
 `chunk-length` | `Number`  | `8192`  | Size of a chunk transfered at a time in bytes.
+`auto-upload`  | `Boolean` | `false` | Upload file automatically or manual by clicking accept button.
 
 ## Methods
 
