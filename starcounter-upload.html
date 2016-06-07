@@ -13,12 +13,21 @@ version: 0.0.1
         :host input[type=file] {
             display: none;
         }
+
+        :host button {
+            display: block;
+            margin: 10px 0 10px 0;
+        }
+
     </style>
 
-    <template>
-        <content></content>
-        <input type="file" accept="{{fileFilter}}" id="fileElement" on-change="filesSelectedChanged" file-select="filesSelectedClick" multiple$="{{multiple}}" />
+<template>
+    <template is="dom-if" if="{{isSumbitVisible(autoUpload, tasks.length)}}">
+        <button type="button" class="btn btn-sm btn-default" on-click="submitAllFiles">Submit</button>
     </template>
+    <content></content>
+    <input type="file" accept="{{fileFilter}}" id="fileElement" on-change="filesSelectedChanged" file-select="filesSelectedClick" multiple$="{{multiple}}"/>
+</template>
     <script>
         "use strict";
 
@@ -49,7 +58,14 @@ version: 0.0.1
                 chunkLength: {
                     type: Number,
                     value: 8192
+                },
+                autoUpload: {
+                    type: Boolean,
+                    value: false
                 }
+            },
+            isSumbitVisible: function (autoUpload, tasksLength) {
+                return !autoUpload && tasksLength > 0;
             },
             selectFile: function () {
                 this.$.fileElement.click();
@@ -233,11 +249,22 @@ version: 0.0.1
                     };
 
                     this.push("tasks", task);
-                    this.fire("statechange", task);
-                    this.processTask(task);
+                    if (this.autoUpload) {
+                        this.fire("statechange", task);
+                        this.processTask(task);
+                    }
                 }
 
                 this.$.fileElement.value = "";
+            },
+            submitAllFiles: function () {
+                for (var i = 0 ; i < this.tasks.length; i++) {
+                    var task = this.tasks[i];
+                    if (!task.socket) {
+                        this.fire("statechange", task);
+                        this.processTask(task);
+                    }
+                }
             }
         });
     </script>
