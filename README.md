@@ -37,6 +37,14 @@ Name          | Parameters       | Description
 }
 ```
 
+## Custom upload URL parameters
+
+```html
+<starcounter-upload>
+	<input type="hidden" name="CustomerParameter" value="CustomValue" slot="parameters" />
+</starcounter-upload>
+```
+
 ## License
 
 MIT

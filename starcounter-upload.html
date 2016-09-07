@@ -25,6 +25,7 @@ version: 0.0.1
     <template is="dom-if" if="{{isSumbitVisible(autoUpload, tasks.length)}}">
         <button type="button" class="btn btn-sm btn-default" on-click="submitAllFiles">Submit</button>
     </template>
+    <content id="parameters" select="[slot=parameters]"></content>
     <content></content>
     <input type="file" accept="{{fileFilter}}" id="fileElement" on-change="filesSelectedChanged" file-select="filesSelectedClick" multiple$="{{multiple}}"/>
 </template>
@@ -218,6 +219,14 @@ version: 0.0.1
             },
             getUploadUrl: function (file) {
                 var url = this.uploadUrl + "?filename=" + file.name + "&filesize=" + file.size + "&sessionid=" + this.sessionId;
+                var nodes = this.$.parameters.getDistributedNodes();
+
+                for (var i = 0; i < nodes.length; i++) {
+                    var node = nodes[i];
+                    var p = "&" + node.name + "=" + encodeURIComponent(node.value);
+
+                    url += p;
+                }
 
                 url = new URL(url, window.location);
                 url.protocol = window.location.protocol == "https:" ? "wss:" : "ws:";
