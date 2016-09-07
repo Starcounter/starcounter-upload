@@ -220,7 +220,7 @@ version: 0.0.1
                 var url = this.uploadUrl + "?filename=" + file.name + "&filesize=" + file.size + "&sessionid=" + this.sessionId;
 
                 url = new URL(url, window.location);
-                url.protocol = "ws:";
+                url.protocol = window.location.protocol == "https:" ? "wss:" : "ws:";
                 url = url.toString();
 
                 return url;
