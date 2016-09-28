@@ -69,7 +69,9 @@ version: 0.0.2
                 return !autoUpload && tasksLength > 0;
             },
             selectFile: function () {
-                this.$.fileElement.click();
+                var element = this.$.fileElement;
+                element.value = "";
+                element.click();
             },
             abortAllTasks: function (e) {
                 for (var i = 0; i < this.tasks.length ; i++) {
