@@ -22,7 +22,7 @@ version: 0.0.3
     </style>
 
 <template>
-    <template is="dom-if" if="{{isSumbitVisible(autoUpload, tasks.length)}}">
+    <template is="dom-if" if="{{isSubmitVisible(autoUpload, tasks.length)}}">
         <button type="button" class="btn btn-sm btn-default" on-click="submitAllFiles">Submit</button>
     </template>
     <content id="parameters" select="[slot=parameters]"></content>
@@ -65,7 +65,7 @@ version: 0.0.3
                     value: false
                 }
             },
-            isSumbitVisible: function (autoUpload, tasksLength) {
+            isSubmitVisible: function (autoUpload, tasksLength) {
                 return !autoUpload && tasksLength > 0;
             },
             selectFile: function () {
