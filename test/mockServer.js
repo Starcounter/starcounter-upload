@@ -14,14 +14,15 @@
     var mockWebSocket = function (url) {
         var fileName = getParameterByName("FileName", url);
         var fileSize = getParameterByName("FileSize", url) / 1;
+        var fileType = getParameterByName("FileType", url);
         var sessionId = getParameterByName("SessionId", url);
 
         if (!sessionId) {
             throw "Invalid or missing sessionid url parameter"
         }
 
-        if (!fileName) {
-            throw "Invalid or missing filename url parameter";
+        if (!fileName && !fileType) {
+            throw "Invalid or missing filename and filetype url parameter";
         }
 
         if (!fileSize) {
@@ -30,6 +31,7 @@
 
         this.fileName = fileName;
         this.fileSize = fileSize;
+        this.fileType = fileType;
         this.receivedSize = 0;
         this.sessionId = sessionId;
         this.readyState = 1;

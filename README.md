@@ -3,15 +3,16 @@ Starcounter Polymer element to uplaod files over WebSocket
 
 ## Properties
 
-Name           | Type      | Default | Description
----------------|-----------|---------|--------------
-`uploadUrl`    | `String`  |         | Upload to url to establish WebSocket connection. Should start with `/` and can not include `?` with query string parameters.
-`tasks`        | `Array`   | `[]`    | Queue of files uploading, filled by `starcounter-upload`. Cannot be supplied from outside.
-`file-filter`  | `String`  | `""`    | Select file dialog filter, for example `.zip` or `.png`.
-`sessionId`    | `String`  |         | Starcounter sessions id to pass with file upload.
-`multiple`     | `Boolean` | `false` | Multiple file selection.
-`chunk-length` | `Number`  | `8192`  | Size of a chunk transfered at a time in bytes.
-`auto-upload`  | `Boolean` | `false` | Upload file automatically or manual by clicking accept button.
+Name               | Type      | Default                                                                          | Description
+-------------------|-----------|----------------------------------------------------------------------------------|--------------
+`uploadUrl`        | `String`  |                                                                                  | Upload to url to establish WebSocket connection. Should start with `/` and can not include `?` with query string parameters.
+`tasks`            | `Array`   | `[]`                                                                             | Queue of files uploading, filled by `starcounter-upload`. Cannot be supplied from outside.
+`file-filter`      | `String`  | `""`                                                                             | Select file dialog filter, for example `.zip` or `.png`.
+`paste-file-types` | `Array`   | `["image/png", "image/jpeg", "image/pjpeg", "image/bmp", "image/x-windows-bmp"]` |
+`sessionId`        | `String`  |                                                                                  | Starcounter sessions id to pass with file upload.
+`multiple`         | `Boolean` | `false`                                                                          | Multiple file selection.
+`chunk-length`     | `Number`  | `8192`                                                                           | Size of a chunk transfered at a time in bytes.
+`auto-upload`      | `Boolean` | `false`                                                                          | Upload file automatically or manual by clicking accept button.
 
 ## Methods
 

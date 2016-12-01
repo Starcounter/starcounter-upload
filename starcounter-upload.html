@@ -18,17 +18,16 @@ version: 0.0.4
             display: block;
             margin: 10px 0 10px 0;
         }
-
     </style>
 
-<template>
-    <template is="dom-if" if="{{isSubmitVisible(autoUpload, tasks.length)}}">
-        <button type="button" class="btn btn-sm btn-default" on-click="submitAllFiles">Submit</button>
+    <template>
+        <template is="dom-if" if="{{isSubmitVisible(autoUpload, tasks.length)}}">
+            <button type="button" class="btn btn-sm btn-default" on-click="submitAllFiles">Submit</button>
+        </template>
+        <content id="parameters" select="[slot=parameters]"></content>
+        <content></content>
+        <input type="file" accept="{{fileFilter}}" id="fileElement" on-change="filesSelectedChanged" file-select="filesSelectedClick" multiple$="{{multiple}}" />
     </template>
-    <content id="parameters" select="[slot=parameters]"></content>
-    <content></content>
-    <input type="file" accept="{{fileFilter}}" id="fileElement" on-change="filesSelectedChanged" file-select="filesSelectedClick" multiple$="{{multiple}}"/>
-</template>
     <script>
         "use strict";
 
@@ -48,6 +47,11 @@ version: 0.0.4
                     type: String,
                     value: ""
                 },
+                pasteFileTypes: {
+                    type: Array,
+                    //https://www.sitepoint.com/web-foundations/mime-types-complete-list/
+                    value: function () { return ["image/png", "image/jpeg", "image/pjpeg", "image/bmp", "image/x-windows-bmp"]; }
+                },
                 sessionId: {
                     type: String,
                     value: null
@@ -64,6 +68,14 @@ version: 0.0.4
                     type: Boolean,
                     value: false
                 }
+            },
+            attached: function () {
+                this.paste = this.paste.bind(this);
+
+                document.addEventListener("paste", this.paste);
+            },
+            detached: function () {
+                document.removeEventListener("paste", this.paste);
             },
             isSubmitVisible: function (autoUpload, tasksLength) {
                 return !autoUpload && tasksLength > 0;
@@ -220,7 +232,16 @@ version: 0.0.4
                 };
             },
             getUploadUrl: function (file) {
-                var url = this.uploadUrl + "?filename=" + file.name + "&filesize=" + file.size + "&sessionid=" + this.sessionId;
+                var url = this.uploadUrl + "?filesize=" + file.size + "&sessionid=" + this.sessionId;
+
+                if (file.name) {
+                    url += ("&filename=" + file.name);
+                }
+
+                if (file.type) {
+                    url += ("&filetype=" + file.type);
+                }
+
                 var nodes = this.$.parameters.getDistributedNodes();
 
                 for (var i = 0; i < nodes.length; i++) {
@@ -275,6 +296,45 @@ version: 0.0.4
                         this.fire("statechange", task);
                         this.processTask(task);
                     }
+                }
+            },
+            paste: function (e) {
+                if (!e.clipboardData) {
+                    return;
+                }
+
+                var items = e.clipboardData.items;
+
+                if (!items || !items.length) {
+                    return;
+                }
+
+                for (var i = 0; i < items.length; i++) {
+                    var type = items[i].type;
+
+                    if (this.pasteFileTypes.indexOf(type) < 0) {
+                        continue;
+                    }
+
+                    var blob = items[i].getAsFile();
+                    this.onPasted(blob);
+                }
+
+                e.preventDefault();
+            },
+            onPasted: function (file) {
+                var task = {
+                    file: file,
+                    progress: 0,
+                    error: null,
+                    sizeString: this.getFileSizeString(file.size)
+                };
+
+                this.push("tasks", task);
+
+                if (this.autoUpload) {
+                    this.fire("statechange", task);
+                    this.processTask(task);
                 }
             }
         });
