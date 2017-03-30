@@ -67,6 +67,9 @@ version: 0.0.6
                 autoUpload: {
                     type: Boolean,
                     value: false
+                },
+                active: {
+                    type: Boolean, value: false
                 }
             },
             attached: function () {
@@ -86,7 +89,7 @@ version: 0.0.6
                 element.click();
             },
             abortAllTasks: function (e) {
-                for (var i = 0; i < this.tasks.length ; i++) {
+                for (var i = 0; i < this.tasks.length; i++) {
                     var task = this.tasks[i];
 
                     if (task.socket != null) {
@@ -272,7 +275,7 @@ version: 0.0.6
             filesSelectedChanged: function () {
                 var files = this.$.fileElement.files;
 
-                for (var i = 0 ; i < files.length; i++) {
+                for (var i = 0; i < files.length; i++) {
                     var task = {
                         file: files[i],
                         progress: 0,
@@ -290,7 +293,7 @@ version: 0.0.6
                 this.$.fileElement.value = "";
             },
             submitAllFiles: function () {
-                for (var i = 0 ; i < this.tasks.length; i++) {
+                for (var i = 0; i < this.tasks.length; i++) {
                     var task = this.tasks[i];
                     if (!task.socket) {
                         this.fire("statechange", task);
@@ -299,7 +302,7 @@ version: 0.0.6
                 }
             },
             paste: function (e) {
-                if (!e.clipboardData) {
+                if (!e.clipboardData || !this.active) {
                     return;
                 }
 
@@ -320,7 +323,6 @@ version: 0.0.6
                     this.onPasted(blob);
                     e.preventDefault();
                 }
-
             },
             onPasted: function (file) {
                 var task = {
