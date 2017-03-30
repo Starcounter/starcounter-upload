@@ -318,9 +318,9 @@ version: 0.0.5
 
                     var blob = items[i].getAsFile();
                     this.onPasted(blob);
+                    e.preventDefault();
                 }
 
-                e.preventDefault();
             },
             onPasted: function (file) {
                 var task = {
