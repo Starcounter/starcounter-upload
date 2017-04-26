@@ -5,7 +5,7 @@
     "authors": [
         "Konstantin <const.miyang@gmail.com>"
     ],
-    "description": "Starcounter Polymer element to uplaod files over WebSocket",
+    "description": "Starcounter Polymer element to upload files over WebSocket",
     "main": "starcounter-upload.html",
     "moduleType": [ ],
     "keywords": [
