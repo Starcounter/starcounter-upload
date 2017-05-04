@@ -1,5 +1,5 @@
 # starcounter-upload
-Starcounter Polymer element to uplaod files over WebSocket
+Starcounter Polymer element to upload files over WebSocket
 
 ## Properties
 
