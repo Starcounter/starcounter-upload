@@ -21,11 +21,13 @@ version: 0.0.7
     </style>
 
     <template>
-        <template is="dom-if" if="{{isSubmitVisible(autoUpload, tasks.length)}}">
-            <button type="button" class="btn btn-sm btn-default" on-click="submitAllFiles">Submit</button>
-        </template>
-        <content id="parameters" select="[slot=parameters]"></content>
-        <content></content>
+        <dom-if>
+            <template is="dom-if" if="{{isSubmitVisible(autoUpload, tasks.length)}}">
+                <button type="button" class="btn btn-sm btn-default" on-click="submitAllFiles">Submit</button>
+            </template>
+        </dom-if>
+        <slot id="parameters" select="[slot=parameters]"></slot>
+        <slot></slot>
         <input type="file" accept="{{fileFilter}}" id="fileElement" on-change="filesSelectedChanged" file-select="filesSelectedClick" multiple$="{{multiple}}" />
     </template>
     <script>
