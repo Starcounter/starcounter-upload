@@ -26,7 +26,7 @@ version: 0.0.7
                 <button type="button" class="btn btn-sm btn-default" on-click="submitAllFiles">Submit</button>
             </template>
         </dom-if>
-        <slot id="parameters" name="[slot=parameters]"></slot>
+        <slot id="parameters" name="parameters"></slot>
         <slot></slot>
         <input type="file" accept="{{fileFilter}}" id="fileElement" on-change="filesSelectedChanged" file-select="filesSelectedClick" multiple$="{{multiple}}" />
     </template>
