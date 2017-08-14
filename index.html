@@ -40,19 +40,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <dom-repeat>
-                                    <template is="dom-repeat" items="{{model.files}}">
-                                        <tr>
-                                            <td>{{item.file.name}}</td>
-                                            <td>{{item.file.type}}</td>
-                                            <td>{{item.sizeString}}</td>
-                                            <td>
-                                                <span>{{item.progress}}</span>%
-                                            </td>
-                                            <td>{{item.error}}</td>
-                                        </tr>
-                                    </template>
-                                </dom-repeat>
+                                <template is="dom-repeat" items="{{model.files}}">
+                                    <tr>
+                                        <td>{{item.file.name}}</td>
+                                        <td>{{item.file.type}}</td>
+                                        <td>{{item.sizeString}}</td>
+                                        <td>
+                                            <span>{{item.progress}}</span>%
+                                        </td>
+                                        <td>{{item.error}}</td>
+                                    </tr>
+                                </template>
                             </tbody>
                         </table>
                     </template>
@@ -79,19 +77,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <dom-repeat>
-                                    <template is="dom-repeat" items="{{tasks}}">
-                                        <tr>
-                                            <td>{{item.file.name}}</td>
-                                            <td>{{item.file.type}}</td>
-                                            <td>{{item.sizeString}}</td>
-                                            <td>
-                                                <span>{{item.progress}}</span>%
-                                            </td>
-                                            <td>{{item.error}}</td>
-                                        </tr>
-                                    </template>
-                                </dom-repeat>
+                                <template is="dom-repeat" items="{{tasks}}">
+                                    <tr>
+                                        <td>{{item.file.name}}</td>
+                                        <td>{{item.file.type}}</td>
+                                        <td>{{item.sizeString}}</td>
+                                        <td>
+                                            <span>{{item.progress}}</span>%
+                                        </td>
+                                        <td>{{item.error}}</td>
+                                    </tr>
+                                </template>
                             </tbody>
                         </table>
                     </template>
