@@ -1,6 +1,6 @@
 {
     "name": "starcounter-upload",
-    "version": "0.0.7",
+    "version": "1.0.0",
     "description": "<starcounter-upload> is a Starcounter Polymer element to upload files over WebSocket",
     "main": "starcounter-upload.html",
     "directories": { },
