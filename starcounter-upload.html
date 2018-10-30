@@ -66,6 +66,10 @@ version: 1.0.0
                     type: Number,
                     value: 8192
                 },
+                maxFileSize: {
+                    type: Number,
+                    value: -1
+                },
                 autoUpload: {
                     type: Boolean,
                     value: false
@@ -288,7 +292,9 @@ version: 1.0.0
                         error: null,
                         sizeString: this.getFileSizeString(files[i].size)
                     };
-
+                    if (!this.checkFile(task.file)) {
+                        continue;
+                    }
                     this.push("tasks", task);
                     if (this.autoUpload) {
                         this.fire("statechange", task);
@@ -331,6 +337,9 @@ version: 1.0.0
                 }
             },
             onPasted: function (file) {
+                if (!this.checkFile(file)) {
+                    return;
+                }
                 var task = {
                     file: file,
                     progress: 0,
@@ -344,7 +353,14 @@ version: 1.0.0
                     this.fire("statechange", task);
                     this.processTask(task);
                 }
-            }
+            },
+            checkFile: function (file) {
+                if (file.size > this.maxFileSize && this.maxFileSize > -1) {
+                    alert("File " + file.name + " is too big. Maximum file size is: " + this.maxFileSize + "kb.");
+                    return false;
+                }
+                 return true;
+            },
         });
     </script>
 </dom-module>
