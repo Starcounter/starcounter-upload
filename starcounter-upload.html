@@ -66,6 +66,11 @@ version: 1.0.0
                     type: Number,
                     value: 8192
                 },
+                //Value should be in bytes. Use value 0 in order to disable it.
+                maxFileSize: {
+                    type: Number,
+                    value: 0
+                },
                 autoUpload: {
                     type: Boolean,
                     value: false
@@ -247,11 +252,11 @@ version: 1.0.0
                     url += ("&filetype=" + file.type);
                 }
                 var nodes = null;
-                if(!Polymer.Element) {
+                if (!Polymer.Element) {
                     //Polymer version 1
                     nodes = this.$.parameters.getDistributedNodes();
                 } else {
-                    nodes = this.$.parameters.assignedNodes({flatten: true})
+                    nodes = this.$.parameters.assignedNodes({ flatten: true })
                 }
                 for (var i = 0; i < nodes.length; i++) {
                     var node = nodes[i];
@@ -288,7 +293,11 @@ version: 1.0.0
                         error: null,
                         sizeString: this.getFileSizeString(files[i].size)
                     };
-
+                    if (!this.checkFileSize(task.file)) {
+                        task.error = this.getMaxSizeExceededErrorMessage(file.name);
+                        this.fire("statechange", task);
+                        continue;
+                    }
                     this.push("tasks", task);
                     if (this.autoUpload) {
                         this.fire("statechange", task);
@@ -337,13 +346,26 @@ version: 1.0.0
                     error: null,
                     sizeString: this.getFileSizeString(file.size)
                 };
-
+                if (!this.checkFileSize(file)) {
+                    task.error = this.getMaxSizeExceededErrorMessage(file.name);
+                    this.fire("statechange", task);
+                    return;
+                }
                 this.push("tasks", task);
 
                 if (this.autoUpload) {
                     this.fire("statechange", task);
                     this.processTask(task);
                 }
+            },
+            checkFileSize: function (file) {
+                if (this.maxFileSize && file.size > this.maxFileSize) {
+                    return false;
+                }
+                return true;
+            },
+            getMaxSizeExceededErrorMessage(name) {
+                return "File " + name + " is too big. Maximum file size is: " + this.getFileSizeString(this.maxFileSize) + ".";
             }
         });
     </script>
