@@ -293,7 +293,7 @@ version: 1.0.0
                         error: null,
                         sizeString: this.getFileSizeString(files[i].size)
                     };
-                    if (!this.checkFile(task.file)) {
+                    if (!this.checkFileSize(task.file)) {
                         task.error = this.getMaxSizeExceededErrorMessage(file.name);
                         this.fire("statechange", task);
                         continue;
@@ -346,7 +346,7 @@ version: 1.0.0
                     error: null,
                     sizeString: this.getFileSizeString(file.size)
                 };
-                if (!this.checkFile(file)) {
+                if (!this.checkFileSize(file)) {
                     task.error = this.getMaxSizeExceededErrorMessage(file.name);
                     this.fire("statechange", task);
                     return;
@@ -358,7 +358,7 @@ version: 1.0.0
                     this.processTask(task);
                 }
             },
-            checkFile: function (file) {
+            checkFileSize: function (file) {
                 if (this.maxFileSize && file.size > this.maxFileSize) {
                     return false;
                 }
