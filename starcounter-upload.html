@@ -294,6 +294,8 @@ version: 1.0.0
                         sizeString: this.getFileSizeString(files[i].size)
                     };
                     if (!this.checkFile(task.file)) {
+                        task.error = this.getMaxSizeExceededErrorMessage(file.name);
+                        this.fire("statechange", task);
                         continue;
                     }
                     this.push("tasks", task);
@@ -338,16 +340,17 @@ version: 1.0.0
                 }
             },
             onPasted: function (file) {
-                if (!this.checkFile(file)) {
-                    return;
-                }
                 var task = {
                     file: file,
                     progress: 0,
                     error: null,
                     sizeString: this.getFileSizeString(file.size)
                 };
-
+                if (!this.checkFile(file)) {
+                    task.error = this.getMaxSizeExceededErrorMessage(file.name);
+                    this.fire("statechange", task);
+                    return;
+                }
                 this.push("tasks", task);
 
                 if (this.autoUpload) {
@@ -356,12 +359,14 @@ version: 1.0.0
                 }
             },
             checkFile: function (file) {
-                if (file.size > this.maxFileSize && this.maxFileSize > 0) {
-                    this.fire("fileUploadError", { statusText: "File " + file.name + " is too big. Maximum file size is: " + (this.maxFileSize / 1024) + "kb." });
+                if (this.maxFileSize && file.size > this.maxFileSize) {
                     return false;
                 }
                 return true;
             },
+            getMaxSizeExceededErrorMessage(name) {
+                return "File " + name + " is too big. Maximum file size is: " + (this.maxFileSize / 1024) + "kb."
+            }
         });
     </script>
 </dom-module>

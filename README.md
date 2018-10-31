@@ -27,8 +27,7 @@ Name            | Parameters | Description
 
 Name          | Parameters       | Description
 --------------|------------------|-------------
-`statechange` | { detail: task } | Occurs when file upload state changes, including start upload, upload progress, end upload, abort, fail to upload.
-`fileUploadError` | { detail: statusText} | Occurs when the file zise is bigger than the value of `max-file-size` and the value of `max-file-size` is bigger than 0.
+`statechange` | { detail: task } | Occurs when file upload state changes, including start upload, upload progress, end upload, abort, fail to upload (ex: maximum desired file to be uploaded exceedes value of `max-file-size`).
 
 ## Task object
 
