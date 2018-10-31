@@ -14,6 +14,7 @@ Name               | Type      | Default                                        
 `chunk-length`     | `Number`  | `8192`                                                                           | Size of a chunk transfered at a time in bytes.
 `auto-upload`      | `Boolean` | `false`                                                                          | Upload file automatically or manually by clicking accept button.
 `active`           | `Boolean` | `false`                                                                          | When set to `true` will capture pasted images and upload as file.
+`max-file-size`    | `Number`  | `0`                                                                              | The maximum size that the file to be uploaded can have. It's expressed in bytes.
 
 ## Methods
 
@@ -27,6 +28,7 @@ Name            | Parameters | Description
 Name          | Parameters       | Description
 --------------|------------------|-------------
 `statechange` | { detail: task } | Occurs when file upload state changes, including start upload, upload progress, end upload, abort, fail to upload.
+`fileUploadError` | { detail: statusText} | Occurs when the file zise is bigger than the value of `max-file-size` and the value of `max-file-size` is bigger than 0.
 
 ## Task object
 
