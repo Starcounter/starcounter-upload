@@ -12,14 +12,14 @@ version: 1.0.0
                 display: inline-block;
             }
 
-                :host input[type=file] {
-                    display: none;
-                }
+            :host input[type=file] {
+                display: none;
+            }
 
-                :host button {
-                    display: block;
-                    margin: 10px 0 10px 0;
-                }
+            :host button {
+                display: block;
+                margin: 10px 0 10px 0;
+            }
         </style>
         <dom-if>
             <template is="dom-if" if="{{isSubmitVisible(autoUpload, tasks.length)}}">
@@ -365,7 +365,7 @@ version: 1.0.0
                 return true;
             },
             getMaxSizeExceededErrorMessage(name) {
-                return "File " + name + " is too big. Maximum file size is: " + (this.maxFileSize / 1024) + "kb."
+                return "File " + name + " is too big. Maximum file size is: " + this.getFileSizeString(this.maxFileSize) + ".";
             }
         });
     </script>
