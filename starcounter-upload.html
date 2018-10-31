@@ -66,9 +66,10 @@ version: 1.0.0
                     type: Number,
                     value: 8192
                 },
+                //Value should be in bytes. Use value 0 in order to disable it.
                 maxFileSize: {
                     type: Number,
-                    value: -1
+                    value: 0
                 },
                 autoUpload: {
                     type: Boolean,
@@ -355,8 +356,8 @@ version: 1.0.0
                 }
             },
             checkFile: function (file) {
-                if (file.size > this.maxFileSize && this.maxFileSize > -1) {
-                    alert("File " + file.name + " is too big. Maximum file size is: " + this.maxFileSize + "kb.");
+                if (file.size > this.maxFileSize && this.maxFileSize > 0) {
+                    this.fire("fileUploadError", {statusText: "File " + file.name + " is too big. Maximum file size is: " + (this.maxFileSize / 1024) + "kb."});
                     return false;
                 }
                  return true;
