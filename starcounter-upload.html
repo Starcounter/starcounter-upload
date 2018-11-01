@@ -294,7 +294,7 @@ version: 1.1.0
                         sizeString: this.getFileSizeString(files[i].size)
                     };
                     if (!this.checkFileSize(task.file)) {
-                        task.error = this.getMaxSizeExceededErrorMessage(file.name);
+                        task.error = this.getMaxSizeExceededErrorMessage(task.file.name);
                         this.fire("statechange", task);
                         continue;
                     }
@@ -347,7 +347,7 @@ version: 1.1.0
                     sizeString: this.getFileSizeString(file.size)
                 };
                 if (!this.checkFileSize(file)) {
-                    task.error = this.getMaxSizeExceededErrorMessage(file.name);
+                    task.error = this.getMaxSizeExceededErrorMessage(task.file.name);
                     this.fire("statechange", task);
                     return;
                 }
